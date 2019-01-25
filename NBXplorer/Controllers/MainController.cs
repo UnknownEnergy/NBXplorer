@@ -518,8 +518,8 @@ namespace NBXplorer.Controllers
 						Transaction = includeTransaction ? tx.Record.Transaction : null,
 						Confirmations = tx.Height.HasValue ? currentHeight - tx.Height.Value + 1 : 0,
 						Timestamp = txs.GetByTxId(tx.Record.TransactionHash).Select(t => t.Record.FirstSeen).First(),
-						Inputs = tx.Record.SpentOutpoints.Select(o => txs.GetUTXO(o)).Where(o => o != null).ToList(),
-						Outputs = tx.Record.GetReceivedOutputs().ToList()
+						Inputs = tx.Record.SpentOutpoints.Select(o => txs.GetUTXO(o, network.NBitcoinNetwork)).Where(o => o != null).ToList(),
+						Outputs = tx.Record.GetReceivedOutputs(network.NBitcoinNetwork).ToList()
 					};
 
 					if (txId == null || txId == txInfo.TransactionId)

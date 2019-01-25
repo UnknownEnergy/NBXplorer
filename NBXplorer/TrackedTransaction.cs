@@ -125,7 +125,7 @@ namespace NBXplorer{
 			return KnownKeyPathMapping.Values.Select(v => new KeyPathInformation(v, derivationStrategy));
 		}
 
-		public IEnumerable<MatchedOutput> GetReceivedOutputs()
+		public IEnumerable<MatchedOutput> GetReceivedOutputs(Network network)
 		{
 			return this.ReceivedCoins
 							.Select(o => (Index: (int)o.Outpoint.N,
@@ -137,7 +137,8 @@ namespace NBXplorer{
 								Index = o.Index,
 								Value = o.Output.Amount,
 								KeyPath = o.KeyPath,
-								ScriptPubKey = o.Output.ScriptPubKey
+								ScriptPubKey = o.Output.ScriptPubKey,
+								Address = o.Output.ScriptPubKey.GetDestinationAddress(network).ToString()
 							});
 		}
 	}

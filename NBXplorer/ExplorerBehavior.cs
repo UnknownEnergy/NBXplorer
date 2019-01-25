@@ -327,7 +327,7 @@ namespace NBXplorer
 						Transaction = matches[i].Transaction,
 						TransactionHash = matches[i].TransactionHash
 					},
-					Outputs = matches[i].GetReceivedOutputs().ToList()
+					Outputs = matches[i].GetReceivedOutputs(Network.NBitcoinNetwork).ToList()
 				};
 				saving[i] = Repository.SaveEvent(txEvt);
 				_EventAggregator.Publish(txEvt);

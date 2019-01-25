@@ -107,11 +107,11 @@ namespace NBXplorer
             TrackedSource = trackedSource;
         }
 
-        public MatchedOutput GetUTXO(OutPoint outpoint)
+        public MatchedOutput GetUTXO(OutPoint outpoint, Network network)
         {
             if (_TxById.TryGetValue(outpoint.Hash, out var txs))
             {
-                return txs.SelectMany(t => t.Record.GetReceivedOutputs().Where(c => c.Index == outpoint.N))
+                return txs.SelectMany(t => t.Record.GetReceivedOutputs(network).Where(c => c.Index == outpoint.N))
                           .FirstOrDefault();
             }
             return null;
